@@ -4,6 +4,7 @@ const users = require("./models/userModel");
 const isLoggedIn = require("./middlewares/isLoggedIn");
 const userRouter = require("./routes/userRouter");
 const router = require("./routes/userRouter");
+const { connectDb } = require("./config/dbConnect");
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -20,6 +21,7 @@ app.get("/profile", isLoggedIn, (req, res) => {
 app.get("/", (req, res) => {
   res.status(200).send("Server is Running");
 });
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
   console.log("Server is Running at 3000");
+  await connectDb();
 });
